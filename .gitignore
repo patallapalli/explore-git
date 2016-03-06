@@ -29,4 +29,5 @@
 
 # Code Blocks things
 *.cbp
-*.depends
+*.depend
+*.layout
