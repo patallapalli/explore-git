@@ -1,5 +1,6 @@
 #CONTRIBUTING
 
+Fork this repo, make changes, test code, submit pr.
 The aim of the event is to **Teach Git Hands-On**. Due to time constraints, the projects we provide for hacking ***cannot***
 
 - be difficult, the aim is to learn `git` and not computer science.
