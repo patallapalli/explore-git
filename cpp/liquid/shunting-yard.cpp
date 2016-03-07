@@ -193,22 +193,22 @@ double calculator::calculate(TokenQueue_t rpn,
       }
       double right = evaluation.top(); evaluation.pop();
       double left  = evaluation.top(); evaluation.pop();
-      if (!str.compare("+")) {
-        evaluation.push(left + right);
+            if (!str.compare("+")) {
+        evaluation.push(ml_add(left,right));
       } else if (!str.compare("*")) {
-        evaluation.push(left * right);
+        evaluation.push(ml_mul(left,right));
       } else if (!str.compare("-")) {
-        evaluation.push(left - right);
+        evaluation.push(ml_sub(left,right));
       } else if (!str.compare("/")) {
-        evaluation.push(left / right);
+        evaluation.push(ml_div(left,right));
       } else if (!str.compare("<<")) {
         evaluation.push((int) left << (int) right);
       } else if (!str.compare("^")) {
-        evaluation.push(pow(left, right));
+        evaluation.push(ml_power(left,right));
       } else if (!str.compare(">>")) {
         evaluation.push((int) left >> (int) right);
       } else if (!str.compare("%")) {
-        evaluation.push((int) left % (int) right);
+        evaluation.push(ml_mod(left,right));
       } else if (!str.compare("<")) {
         evaluation.push(left < right);
       } else if (!str.compare(">")) {
