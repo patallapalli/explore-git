@@ -9,6 +9,7 @@
 #include <stack>
 #include <string>
 #include <queue>
+#include "math-lib.h"
 
 enum tokType { NONE, OP, VAR, NUM };
 

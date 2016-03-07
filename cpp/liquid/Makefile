@@ -17,7 +17,9 @@
 src_files = ml_add \
 			ml_sub \
 			ml_mul \
-			ml_div
+			ml_div \
+			ml_mod \
+			ml_power
 
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # 				 DON'T TOUCH BELOW THIS           #
@@ -40,8 +42,11 @@ OBJECTS = $(src_files:%=$(build_dir)%.o)
 $(build_dir)%.o: $(srcdir)%.cpp $(srcdir)math-lib.h
 	$(CXX) $(CXXFLAGS) $< -o $@
 
-liquid: $(OBJECTS)
-	$(CXX) -Wall -I $(srcdir) $(LDFLAGS) $@.cpp $? -o $@
+shunting-yard.o: shunting-yard.h
+	$(CXX) -Wall -I. -I$(srcdir) shunting-yard.cpp -c -o shunting-yard.o
+
+liquid: $(OBJECTS) shunting-yard.o
+	$(CXX) -Wall -I $(srcdir) -I. $(LDFLAGS) $@.cpp $? -o $@
 
 clean:
 	@rm build/*.[ao]
