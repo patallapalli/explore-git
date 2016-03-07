@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1457283068 source:c:\users\kartik\documents\github\explore-git\cpp\liquid\liquid.cpp
+1457351362 source:c:\users\kartik\documents\github\explore-git\cpp\liquid\liquid.cpp
 	"math-lib.h"
+	"shunting-yard.h"
 	<iostream>
 	<string>
 
@@ -21,4 +22,26 @@
 
 1457283411 source:c:\users\kartik\documents\github\explore-git\cpp\liquid\src\ml_power.cpp
 	"math-lib.h"
+
+1457285846 c:\users\kartik\documents\github\explore-git\cpp\liquid\shunting-yard.h
+	<map>
+	<stack>
+	<string>
+	<queue>
+
+1457285846 source:c:\users\kartik\documents\github\explore-git\cpp\liquid\shunting-yard.cpp
+	<cstdlib>
+	<iostream>
+	<sstream>
+	<stdexcept>
+	<math.h>
+	"shunting-yard.h"
+
+1457285846 source:c:\users\kartik\documents\github\explore-git\cpp\liquid\test-shunting-yard.cpp
+	<iostream>
+	<limits>
+	<map>
+	<string>
+	<stdexcept>
+	"shunting-yard.h"
 
