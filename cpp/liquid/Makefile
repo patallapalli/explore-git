@@ -43,6 +43,11 @@ $(build_dir)%.o: $(srcdir)%.cpp $(srcdir)math-lib.h
 liquid: $(OBJECTS)
 	$(CXX) -Wall -I $(srcdir) $(LDFLAGS) $@.cpp $? -o $@
 
+again: clean liquid
+
+test:
+	./liquid
+
 clean:
 	@rm build/*.[ao]
 	@rm *.[ao]
