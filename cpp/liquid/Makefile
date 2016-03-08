@@ -17,7 +17,9 @@
 src_files = ml_add \
 			ml_sub \
 			ml_mul \
-			ml_div
+			ml_div \
+			ml_mod \
+			ml_power
 
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # 				 DON'T TOUCH BELOW THIS           #
@@ -28,8 +30,8 @@ build_dir = build/
 
 DEPS = math-lib.h
 
-CXXFLAGS = -Wall -c -I $(srcdir)
-
+CFLAGS = -Wall -std=c99 -c -I. -I$(srcdir)
+LDFLAGS = -lm
 SOURCES = $(src_files:%=$(srcdir)%.cpp)
 OBJECTS = $(src_files:%=$(build_dir)%.o)
 
@@ -37,11 +39,19 @@ OBJECTS = $(src_files:%=$(build_dir)%.o)
 # $< is first pre-requisite
 # $^ is space-separated list of all pre-requisites
 
-$(build_dir)%.o: $(srcdir)%.cpp $(srcdir)math-lib.h
-	$(CXX) $(CXXFLAGS) $< -o $@
+$(build_dir)%.o: $(srcdir)%.c $(srcdir)math-lib.h
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
 
-liquid: $(OBJECTS)
-	$(CXX) -Wall -I $(srcdir) $(LDFLAGS) $@.cpp $? -o $@
+%.o: %.c shunting-yard.h stack.h $(DEPS)
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
+
+liquid: liquid.o $(OBJECTS) shunting-yard.o stack.o
+	$(CC) -Wall -std=c99 -I $(srcdir) -I. $? -o $@ $(LDFLAGS)
+
+again: clean liquid
+
+test:
+	./liquid
 
 clean:
 	@rm build/*.[ao]
