@@ -30,8 +30,8 @@ build_dir = build/
 
 DEPS = math-lib.h
 
-CXXFLAGS = -Wall -c -I $(srcdir)
-
+CFLAGS = -Wall -std=c99 -c -I. -I$(srcdir)
+LDFLAGS = -lm
 SOURCES = $(src_files:%=$(srcdir)%.cpp)
 OBJECTS = $(src_files:%=$(build_dir)%.o)
 
@@ -39,14 +39,14 @@ OBJECTS = $(src_files:%=$(build_dir)%.o)
 # $< is first pre-requisite
 # $^ is space-separated list of all pre-requisites
 
-$(build_dir)%.o: $(srcdir)%.cpp $(srcdir)math-lib.h
-	$(CXX) $(CXXFLAGS) $< -o $@
+$(build_dir)%.o: $(srcdir)%.c $(srcdir)math-lib.h
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
 
-shunting-yard.o: shunting-yard.h
-	$(CXX) -Wall -I. -I$(srcdir) shunting-yard.cpp -c -o shunting-yard.o
+%.o: %.c shunting-yard.h stack.h $(DEPS)
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
 
-liquid: $(OBJECTS) shunting-yard.o
-	$(CXX) -Wall -I $(srcdir) -I. $(LDFLAGS) $@.cpp $? -o $@
+liquid: liquid.o $(OBJECTS) shunting-yard.o stack.o
+	$(CC) -Wall -std=c99 -I $(srcdir) -I. $? -o $@ $(LDFLAGS)
 
 again: clean liquid
 
