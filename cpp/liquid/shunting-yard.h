@@ -5,6 +5,7 @@
 #ifndef _SHUNTING_YARD_H
 #define _SHUNTING_YARD_H
 
+#include "math-lib.h"
 #include <map>
 #include <stack>
 #include <string>
