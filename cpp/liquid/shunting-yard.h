@@ -1,61 +1,35 @@
-// Source: http://www.daniweb.com/software-development/cpp/code/427500/calculator-using-shunting-yard-algorithm#
-// Author: Jesse Brown
-// Modifications: Brandon Amos
+// Copyright 2011 - 2012, 2014 Brian Marshall. All rights reserved.
+//
+// Use of this source code is governed by the BSD 2-Clause License that can be
+// found in the LICENSE file.
 
-#ifndef _SHUNTING_YARD_H
-#define _SHUNTING_YARD_H
+#ifndef SHUNTING_YARD_H
+#define SHUNTING_YARD_H
 
-#include <map>
-#include <stack>
-#include <string>
-#include <queue>
+#include <ctype.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "math-lib.h"
 
-enum tokType { NONE, OP, VAR, NUM };
+#define 	M_PI   3.141592653589793238
+#define 	M_E   2.71828182845905
+typedef enum {
+    OK,
+    ERROR_SYNTAX,
+    ERROR_OPEN_PARENTHESIS,
+    ERROR_CLOSE_PARENTHESIS,
+    ERROR_UNRECOGNIZED,
+    ERROR_NO_INPUT,
+    ERROR_UNDEFINED_FUNCTION,
+    ERROR_FUNCTION_ARGUMENTS,
+    ERROR_UNDEFINED_CONSTANT
+} Status;
 
-struct TokenBase {
-  tokType type;
-  virtual ~TokenBase() {}
-};
+// Calculates the result of a mathematical expression.
+Status shunting_yard(const char *expression, double *result);
 
-template<class T> class Token : public TokenBase {
-public:
-  Token (T t, tokType type) : val(t) { this->type=type; }
-  T val;
-};
-
-typedef std::queue<TokenBase*> TokenQueue_t;
-
-class calculator {
-private:
-  static std::map<std::string, int> opPrecedence;
-  static std::map<std::string, int> buildOpPrecedence();
-
-public:
-  static double calculate(const char* expr,
-      std::map<std::string, double>* vars = 0);
-
-private:
-  static double calculate(TokenQueue_t RPN,
-      std::map<std::string, double>* vars = 0);
-  static void cleanRPN(TokenQueue_t& rpn);
-  static TokenQueue_t toRPN(const char* expr,
-      std::map<std::string, double>* vars,
-      std::map<std::string, int> opPrecedence=opPrecedence);
-
-private:
-  TokenQueue_t RPN;
-public:
-  ~calculator();
-  calculator(){}
-  calculator(const char* expr,
-      std::map<std::string, double>* vars = 0,
-      std::map<std::string, int> opPrecedence=opPrecedence);
-  void compile(const char* expr,
-      std::map<std::string, double>* vars = 0,
-      std::map<std::string, int> opPrecedence=opPrecedence);
-  double eval(std::map<std::string, double>* vars = 0);
-  std::string str();
-};
-
-#endif // _SHUNTING_YARD_H
+#endif  // SHUNTING_YARD_H
