@@ -1,7 +1,8 @@
 #ifndef __LIB_GANIT__
 #define __LIB_GANIT__
 
-#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
 
 double ml_add(double, double);
 double ml_mul(double, double);

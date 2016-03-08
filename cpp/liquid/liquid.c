@@ -9,6 +9,6 @@ int main(int agrc, char *argv[]){
     scanf(" %s", input);
     Status response = shunting_yard(input, &result);
     
-	printf(": %d\n>> %f", response, result);
+	printf(": %d\n>> %f\n", response, result);
 	return 0;
 }
