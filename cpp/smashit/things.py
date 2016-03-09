@@ -92,18 +92,22 @@ class Ball(object):
 		# So, all detectors need to store the "surface penetration amounts" in the container provided
 		hit = False
 		if self.pos[0] > self.world.w - self.radius:
+			# right wall
 			hit = True
 			normals.append([-1, 0])
 			# self.pos[0] + self.radius - self.world.w
 		if self.pos[0] < self.radius:
+			# left wall
 			hit = True
 			normals.append([1, 0])
 			# self.radius - self.pos[0]
 		if self.pos[1] < self.radius:
+			# top wall
 			hit = True
 			normals.append([0, 1])
 			# self.radius - self.pos[1]
 		if self.pos[1] > self.world.h - self.radius:
+			# bottom wall
 			hit = True
 			normals.append([0, -1])
 			# self.pos[0] + self.radius - self.world.h
@@ -119,11 +123,14 @@ class Ball(object):
 
 class Brick(object):
 	COLORS = [(0, 0, 0), (0, 255, 0), (255, 0, 0), (0, 0, 255)]
-	def __init__(self, pos, tag, world):
+	def __init__(self, grid_loc, tag, world):
 		self.w, self.h = self.world.brick_shape
-		self.pos = pos
-		self.
+		self.grid_loc = grid_loc
+		self.pos = self.transform_to_px()
 		self.tag = tag
+
+	def transform_to_px(self):
+		return self.world.padding
 
 	def update(self, delta):
 		self.tag += delta
@@ -138,7 +145,8 @@ if __name__ == '__main__':
 			 'radius'      : 8,
 			 'aspect'      : 16.0/9,
 			 'fps'         : 30,
-			 'brick_shape' : (24, 9)}
+			 'brick_shape' : (24, 9),
+			 'padding'     : (18, 30)}
 
 	class boo(object):
 		def __init__(self, layout, config):
