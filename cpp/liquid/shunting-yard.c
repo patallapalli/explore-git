@@ -309,22 +309,22 @@ Status apply_operator(const Operator *operator, Stack **operands) {
     Status status = OK;
     switch (operator->symbol) {
         case '^':
-            x = pow(x, y);
+            x = ml_power(x, y);
             break;
         case '*':
-            x = x * y;
+            x = ml_mul(x,y);
             break;
         case '/':
-            x = x / y;
+            x = ml_div(x,y);
             break;
         case '%':
-            x = fmod(x, y);
+            x = ml_mod(x,y);
             break;
         case '+':
-            x = x + y;
+            x = ml_add(x,y);
             break;
         case '-':
-            x = x - y;
+            x = ml_sub(x,y);
             break;
         default:
             return ERROR_UNRECOGNIZED;
