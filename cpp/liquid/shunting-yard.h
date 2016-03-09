@@ -32,4 +32,4 @@ typedef enum {
 // Calculates the result of a mathematical expression.
 Status shunting_yard(const char *expression, double *result);
 
-#endif  // SHUNTING_YARD_H
+#endif
