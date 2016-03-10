@@ -9,6 +9,14 @@ double ml_mul(double, double);
 double ml_div(double, double);
 double ml_sub(double, double);
 double ml_power(double, double);
-double ml_mod(double,double);
+int ml_mod(int, int);
+int ml_gcd(int,int);
+int ml_lcm(int,int);
+int ml_isPrime(int);
+int ml_nextPrime(int);
+int ml_factorial(int);
+int ml_factorise(int, int*, int*);
+int ml_combos(int,int);
+int ml_perms(int,int);
 
 #endif

@@ -19,7 +19,15 @@ src_files = ml_add \
 			ml_mul \
 			ml_div \
 			ml_mod \
-			ml_power
+			ml_power \
+			ml_perms \
+			ml_combos \
+			ml_isPrime \
+			ml_nextPrime \
+			ml_factorial \
+			ml_factorise \
+			ml_gcd \
+			ml_lcm
 
 #^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^#
 # 				 DON'T TOUCH BELOW THIS           #

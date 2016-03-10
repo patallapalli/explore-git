@@ -1,6 +1,7 @@
 #include "math-lib.h"
 
-bool ml_isPrime(double n1)
+int ml_isPrime(int n1)
+// return 1 if n1 is prime.
 {
     return 0;
 }

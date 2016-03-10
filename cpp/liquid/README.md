@@ -1,7 +1,8 @@
-#Liquid For Devs!
+#The `liquid` 
 
-We don't need to add functionality in `src/`, that is the participants' job *(See the wiki* **"Liquid: How to"** *page)*.
-**The main file is `liquid.cpp`.**
+`liquid` is a simple CLI math application that can solve simple math problems.
+
+#How is the code organised?
 
 This is the directory structure:
 ```
@@ -23,37 +24,27 @@ This is the directory structure:
         └── ml_*****.cpp
 ```
 
-##How to `build` and `run`
 
-On your terminal,
-```sh
-$ cd <path to "liquid">
-$ make liquid
-$ make test <or> ./liquid
+We've already made the CLI which can be used to input a math expression and get the result.
+>Credit: @bamos for implementing the Shunting-Yard Algorithm in `cpp`.
+It's basically the RPN expression parser, which pushes into a `stack` to parse an expression and then evaluate based on priority rules by `popping` the `stack`.
+
+The name of the CLI file is `liquid.cpp`. *You don't have to edit `liquid.cpp`.*
+
+#What do I edit?
+
+See the `src/` directory? Read `math-lib.h`. This is the list of functions that provide the computational functionality to `liquid`.
 ```
-In case you get errors in building, try
-```sh
-$ make again
+double ml_add(double, double);
+double ml_mul(double, double);
+double ml_div(double, double);
+double ml_sub(double, double);
+
 ```
+But, except the `add`, `mul`, `div`, and `sub`, files, the rest are empty.
+And there's also a template file (`ml_template.cpp`).
 
-`make liquid`compiles all the `src/ml_ * .cpp` files and links them to th `liquid.o` to make the executeable `liquid`.
+#Appendix
 
-##What needs to be done?
-Currently, `liquid.cpp` is has a non-intuitive way of interaction. Since we are making a math expression solver, we should be able to input `infix` expressions.
-@bamos built a nice implementation of the [Shunting-Yard Algorithm](https://en.wikipedia.org/wiki/Shunting-yard_algorithm) [here](/bamos/https://github.com/bamos/cpp-expression-parser/)
-We need to change our `liquid.cpp` to utilise the power of `shunting-yard.cpp`.
-
-* Get user expression from `stdin`.
-* Compile the expression (using `calculator::compile()`)
-* Evaluate the expression
-    - by over-riding / modifying the `calculator::calculate(TokenQueue_t)` method.
-    - the functions implemented by `src/ml_ * .cpp` would be invoked.
-* Show output, wait for more expressions.
-
-**That's not all!**
-Checkout the [issues](/arrow-/explore-git/issues) for details on adding function calls, exotic operators.
-
-***
-***Comment on the issue to let everyone know you are working on this. Why should 14 people develop just 1 feature which can be developed by a far less number of people and there are numerous other things to work on.***
-***
-To work on this, you must understand the "Shuning Yard Algorithm" pretty well. The [wikipedia page has a lot of references](https://en.wikipedia.org/wiki/Shunting-yard_algorithm#External_links).
+**CLI**
+*Command Line Interface. It means a* **terminal** *is opened for the user, not a GUI.*

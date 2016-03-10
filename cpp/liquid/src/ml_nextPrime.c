@@ -1,6 +1,7 @@
 #include "math-lib.h"
 
-double ml_nextPrime(double n1)
+int ml_nextPrime(int n1)
+// return the prime number >= n1
 {
     return 0;
 }

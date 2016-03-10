@@ -1,32 +1,14 @@
 #include "math-lib.h"
 
 double ml_power(double n1, double n2)
+/*
+ * Level 0
+ *      assume n1, n2 >= 0 and n2 is a whole number stored in a double type var.
+ * Level 1
+ *      assume n1, n2 >= 0 are Real numbers
+ * Level 2
+ *      no assumptions
+*/
 {
-    double result;
-
-    if(n2==0)
-    {
-        return 1;
-    }
-    else if(n2>0)
-    {
-        result=1;
-
-        for(int i=0;i<n2;i++)
-        {
-            result*=n1;
-        }
-
-        return result;
-    }
-    else
-    {
-        result=1;
-
-        for(int i=0;i<-1*n2;i++)
-        {
-            result*=n1;
-        }
-        return 1/result;
-    }
+    return 0;
 }

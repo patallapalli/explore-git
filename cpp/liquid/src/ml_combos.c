@@ -1,7 +1,6 @@
 #include "math-lib.h"
 
-double ml_power(double n1, double n2){
-    // convert these to ints!
-    // returning a double isn't really wrong...
+int ml_combos(int n1, int n2){
+// Compute and return "n1 Choose n2"
     return 0;
 }

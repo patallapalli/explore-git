@@ -1,6 +1,7 @@
 #include "math-lib.h"
 
-double ml_gcd(double n1,double n2)
+int ml_gcd(int n1, int n2)
+// Compute the GCD(n1, n2)
 {
     return 0;
 }

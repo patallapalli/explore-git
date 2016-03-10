@@ -47,12 +47,16 @@ static const Operator OPERATORS[] = {
     {'^', 2, OPERATOR_BINARY, OPERATOR_RIGHT},
     {'+', 3, OPERATOR_UNARY,  OPERATOR_RIGHT},
     {'-', 3, OPERATOR_UNARY,  OPERATOR_RIGHT},
-    {'*', 4, OPERATOR_BINARY, OPERATOR_LEFT},
-    {'/', 4, OPERATOR_BINARY, OPERATOR_LEFT},
-    {'%', 4, OPERATOR_BINARY, OPERATOR_LEFT},
-    {'+', 5, OPERATOR_BINARY, OPERATOR_LEFT},
-    {'-', 5, OPERATOR_BINARY, OPERATOR_LEFT},
-    {'(', 6, OPERATOR_OTHER,  OPERATOR_NONE}
+    {'P', 4, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'C', 4, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'#', 4, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'$', 4, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'*', 5, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'/', 5, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'%', 5, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'+', 6, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'-', 6, OPERATOR_BINARY, OPERATOR_LEFT},
+    {'(', 7, OPERATOR_OTHER,  OPERATOR_NONE}
 };
 
 // Returns an array of tokens extracted from the expression. The array is
@@ -130,7 +134,7 @@ Token *tokenize(const char *expression) {
             token.type = TOKEN_OPEN_PARENTHESIS;
         else if (*c == ')')
             token.type = TOKEN_CLOSE_PARENTHESIS;
-        else if (strchr("!^*/%+-", *c)) {
+        else if (strchr("!#$PC^*/%+-", *c)) {
             token.type = TOKEN_OPERATOR;
             token.value = strndup(c, 1);
         } else if (sscanf(c, "%m[0-9.]", &token.value))
@@ -318,13 +322,25 @@ Status apply_operator(const Operator *operator, Stack **operands) {
             x = ml_div(x,y);
             break;
         case '%':
-            x = ml_mod(x,y);
+            x = ml_mod((int)x,(int)y);
             break;
         case '+':
             x = ml_add(x,y);
             break;
         case '-':
             x = ml_sub(x,y);
+            break;
+        case '#':
+            x = ml_gcd((int)x,(int)y);
+            break;
+        case '$':
+            x = ml_lcm((int)x,(int)y);
+            break;
+        case 'C':
+            x = ml_combos((int)x,(int)y);
+            break;
+        case 'P':
+            x = ml_perms((int)x,(int)y);
             break;
         default:
             return ERROR_UNRECOGNIZED;
@@ -342,7 +358,7 @@ Status apply_unary_operator(const Operator *operator, Stack **operands) {
             x = -x;
             break;
         case '!':
-            x = tgamma(x + 1);
+            x = ml_factorial((int)x);
             break;
         default:
             return ERROR_UNRECOGNIZED;
@@ -358,8 +374,6 @@ Status apply_function(const char *function, Stack **operands) {
     double x = pop_double(operands);
     if (strcasecmp(function, "abs") == 0)
         x = fabs(x);
-    else if (strcasecmp(function, "sqrt") == 0)
-        x = sqrt(x);
     else if (strcasecmp(function, "ln") == 0)
         x = log(x);
     else if (strcasecmp(function, "lb") == 0)
@@ -373,6 +387,21 @@ Status apply_function(const char *function, Stack **operands) {
         x = sin(x);
     else if (strcasecmp(function, "tan") == 0)
         x = tan(x);
+    else if (strcasecmp(function, "isPrime") == 0)
+        x = ml_isPrime((int)x);
+    else if (strcasecmp(function, "nextPrime") == 0)
+        x = ml_nextPrime((int)x);
+    else if (strcasecmp(function, "factorise") == 0){
+        int factors[120] = {0}, exponents[120] = {0}, i;
+        x = ml_factorise(abs((int)x), factors, exponents);
+        if (x > 0.1){
+            for (i=0; i<120; i++){
+                if (factors[i] == 0) break;
+                printf("%d^%d\n", factors[i], exponents[i]);
+            }
+        }
+        else printf("factorise Failed.\n");
+    }
     else
         return ERROR_UNDEFINED_FUNCTION;
     push_double(x, operands);
