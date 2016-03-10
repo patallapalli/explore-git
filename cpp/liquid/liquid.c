@@ -8,7 +8,7 @@ int main(int agrc, char *argv[]){
 	int i,j;
 	while(1)
 	{
-		gets(input);
+		scanf("%s", input);
 		if(strcmp(input,"Q")==0)
 			break;
 		
